@@ -7,7 +7,7 @@ canvas.height = window.innerHeight
 
 ctx.fillStyle = 'white';
 ctx.strokeStyle = 'white';
-ctx.lineWidth = 1;
+ctx.lineWidth = 0.5;
 
 class Particle {
     constructor(effect) {
@@ -16,13 +16,13 @@ class Particle {
         this.y = Math.floor(Math.random() * this.effect.height);
         this.speedX;
         this.speedY;
-        this.speedModifier = Math.floor(Math.random() * 3 + 1);
+        this.speedModifier = Math.floor(Math.random() * 5 + 1);
 
         this.history = [{ x: this.x, y: this.y }];
-        this.maxLength = Math.floor(Math.random() * 200 + 10);
+        this.maxLength = Math.floor(Math.random() * 150 + 10);
         this.angle = 0;
         this.timer = this.maxLength * 2;
-        this.colors = ["#ef05f7", "#5e0b61", "#7b3d7d", "#3f05ff", "#07f5c9"];
+        this.colors = ["#74828c", "#d9e3af", "#d95f09", "#2c1e42", "#b831bd"];
         this.color = this.colors[Math.floor(Math.random() * this.colors.length)];
     }
     draw(context) {
@@ -72,12 +72,12 @@ class Effect {
         this.height = this.canvas.height;
         this.particles = [];
         this.numberOfParticles = 2000;
-        this.cellSize = 10;
+        this.cellSize = 5;
         this.rows;
         this.cols;
         this.flowField = [];
         this.curve = 5;
-        this.zoom = 0.12;
+        this.zoom = 1;
         this.debug = false;
         this.init();
 
@@ -97,7 +97,7 @@ class Effect {
         this.flowField = [];
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
-                let angle = (Math.cos(x * this.zoom) + Math.sin(y * this.zoom)) * this.curve;
+                let angle = (Math.tan(x * this.zoom) + Math.tan(y * this.zoom)) - this.curve;
                 this.flowField.push(angle);
             }
         }
